@@ -19,6 +19,8 @@ Inkling 2 Mini runs layers 6-17 three times per token. llama.cpp gives each pass
 
 With the patch, a layer whose expert tensors are the same as those of an earlier layer uses the cache entries of that layer. It is off by default. Set the environment variable `LLAMA_MOE_CACHE_SHARE=1` to turn it on.
 
+The patch, the scripts and this README were written with the help of an AI assistant (Claude). All numbers are measurements on the machine described below.
+
 This is an experiment, not a proposal for upstream as it is. It was tested on one machine with one GPU and one model. It is not tested with several GPUs, tensor split, LoRA, or other models.
 
 ## Results
@@ -92,3 +94,5 @@ RTX 4070 Ti（12GB）で Inkling 2 Mini を、本家 llama.cpp の MoE エキス
 Inkling 2 Mini は層 6-17 を 1 トークンにつき 3 回通ります。本家のキャッシュは、この 3 回を別の層として扱うので、同じエキスパートがパスごとに別の枠に入ります。パッチは、同じ重みを指す層に枠を共有させます。環境変数 `LLAMA_MOE_CACHE_SHARE=1` で有効になります（既定は無効で、本家と同じ動き）。
 
 7296 MiB のキャッシュ、CPU 分担 0 で、ヒット率は 81.54% から 94.77% に、生成は 27.52 から 39.35 トークン/秒になりました。数字はすべてこの PC での実測です。なお、この版の llama.cpp では、キャッシュを通らない大きいバッチ（`-cmoe` で ubatch 64 以上など）で出力が壊れます。速さの表には、出力が正常だった構成だけを載せています。試したのは 1 台・1 GPU・1 モデルだけで、本家にそのまま入れられる形ではありません。
+
+パッチ、スクリプト、この README は、AI アシスタント（Claude）の助けを借りて書きました。数字はすべて実測です。
