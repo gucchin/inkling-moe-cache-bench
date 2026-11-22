@@ -1,0 +1,10 @@
+label,run,server_args,prompt_n,prompt_tps,predicted_n,eval_tps,vram_before_mib,vram_peak_total_mib,vram_delta_mib,shared_growth_mib,rss_peak_mib,private_peak_mib,cache_mib,cpu_share,hit_rate_small_pct,hits_small,misses_small,misses_cpu_small,uploaded_small_mib,finish_reason
+N-on-7296-cpu0-restart1,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,149.82,512,40.01,786,11141,10355,15624,16659,27549,7296,0,94.77,574903,31752,0,146365.73,length
+N-on-7296-cpu0-restart1,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,148.71,512,40.02,786,11141,10355,15624,16659,27549,7296,0,94.77,574903,31752,0,146365.73,length
+N-on-7296-cpu0-restart1,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,148.68,512,40.01,786,11141,10355,15624,16659,27549,7296,0,94.77,574903,31752,0,146365.73,length
+N-on-7296-cpu0-restart2,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,149.77,512,40.04,786,11178,10392,15627,16660,27548,7296,0,94.77,574903,31752,0,146365.73,length
+N-on-7296-cpu0-restart2,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,148.91,512,40.01,786,11178,10392,15627,16660,27548,7296,0,94.77,574903,31752,0,146365.73,length
+N-on-7296-cpu0-restart2,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,148.17,512,40.02,786,11178,10392,15627,16660,27548,7296,0,94.77,574903,31752,0,146365.73,length
+N-on-7296-cpu0-restart3,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,149.18,512,39.76,818,11166,10348,15631,16660,27550,7296,0,94.77,574903,31752,0,146365.73,length
+N-on-7296-cpu0-restart3,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,148.57,512,39.72,818,11166,10348,15631,16660,27550,7296,0,94.77,574903,31752,0,146365.73,length
+N-on-7296-cpu0-restart3,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,147.76,512,39.85,818,11166,10348,15631,16660,27550,7296,0,94.77,574903,31752,0,146365.73,length

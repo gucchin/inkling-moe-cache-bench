@@ -1,0 +1,4 @@
+workload_a,workload_b,spearman,top_5pct_overlap,top_10pct_overlap,top_20pct_overlap
+coding,ja_chat,0.1792,0.2662,0.3257,0.3974
+coding,long_read,0.4704,0.2922,0.3681,0.4935
+ja_chat,long_read,0.4376,0.3247,0.4365,0.5016

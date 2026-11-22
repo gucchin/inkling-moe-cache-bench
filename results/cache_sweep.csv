@@ -1,0 +1,17 @@
+host_memory,cache_mib,cpu_share,hit_rate_pct,eval_tps,prompt_tps,vram_delta_mib,eval_spread_pct,label
+mmap (default),1472,0.0,34.14,8.04,28.5,5038,0.7,sweep-1472-s0
+mmap (default),2816,0.0,54.25,10.74,29.0,6374,0.3,sweep-2816-s0
+mmap (default),4096,0.0,65.17,13.21,30.4,7651,0.5,sweep-4096-s0
+mmap (default),5632,0.0,75.02,16.71,31.6,9187,0.9,sweep-5632-s0
+mmap (default),7296,0.0,81.54,20.13,32.8,10360,0.2,S1-share0
+mmap (default),1472,0.95,35.15,17.07,28.6,5025,0.6,sweep-1472-s0.95
+mmap (default),2816,0.95,49.52,19.72,29.7,6370,1.3,sweep-2816-s0.95
+mmap (default),4096,0.95,58.50,21.77,30.9,7649,0.5,sweep-4096-s0.95
+mmap (default),5632,0.95,67.54,24.39,31.9,9188,2.3,sweep-5632-s0.95
+mmap (default),7296,0.95,74.30,26.6,33.4,10780,2.1,S1
+pinned (-lm none),1472,0.0,34.14,13.46,52.3,5029,0.1,sweep-1472-s0-lm-none
+pinned (-lm none),2816,0.0,54.25,17.39,53.8,6419,0.1,sweep-2816-s0-lm-none
+pinned (-lm none),4096,0.0,65.17,20.5,55.7,7659,0.4,sweep-4096-s0-lm-none
+pinned (-lm none),5632,0.0,75.02,24.49,57.7,9223,0.4,sweep-5632-s0-lm-none
+pinned (-lm none),7296,0.0,81.54,27.77,57.8,10359,0.1,S2-lm-none-share0
+pinned (-lm none),7296,0.95,74.30,28.31,59.2,10768,0.3,S2-lm-none

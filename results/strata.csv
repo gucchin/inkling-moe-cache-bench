@@ -1,0 +1,19 @@
+label,run,server_args,prompt_n,prompt_tps,predicted_n,eval_tps,vram_before_mib,vram_peak_total_mib,vram_delta_mib,shared_growth_mib,rss_peak_mib,private_peak_mib,cache_mib,cpu_share,hit_rate_small_pct,hits_small,misses_small,misses_cpu_small,uploaded_small_mib,finish_reason
+S1,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95,1150,30.09,512,26.6,980,11760,10780,130,17246,12516,7296,0.95,74.30,450720,155939,147393,39013.84,length
+S1,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95,1150,33.42,512,26.45,980,11760,10780,130,17246,12516,7296,0.95,74.30,450720,155939,147393,39013.84,length
+S1,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95,1150,33.78,512,27.0,980,11760,10780,130,17246,12516,7296,0.95,74.30,450720,155939,147393,39013.84,length
+S1-share0,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296,1150,29.54,512,20.13,960,11320,10360,77,17083,12018,7296,0,81.54,494650,112005,0,507842.00,length
+S1-share0,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296,1150,32.78,512,20.16,960,11320,10360,77,17083,12018,7296,0,81.54,494650,112005,0,507842.00,length
+S1-share0,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296,1150,32.75,512,20.12,960,11320,10360,77,17083,12018,7296,0,81.54,494650,112005,0,507842.00,length
+S2-lm-none,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm none,1150,55.03,512,28.32,938,11706,10768,15691,16739,28052,7296,0.95,74.30,450720,155939,147393,39013.84,length
+S2-lm-none,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm none,1150,59.18,512,28.24,938,11706,10768,15691,16739,28052,7296,0.95,74.30,450720,155939,147393,39013.84,length
+S2-lm-none,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm none,1150,59.3,512,28.31,938,11706,10768,15691,16739,28052,7296,0.95,74.30,450720,155939,147393,39013.84,length
+S2-lm-none-share0,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,54.01,512,27.75,925,11284,10359,15626,16659,27551,7296,0,81.54,494650,112005,0,507842.00,length
+S2-lm-none-share0,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,57.95,512,27.77,925,11284,10359,15626,16659,27551,7296,0,81.54,494650,112005,0,507842.00,length
+S2-lm-none-share0,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,1150,57.79,512,27.78,925,11284,10359,15626,16659,27551,7296,0,81.54,494650,112005,0,507842.00,length
+S2-lm-mlock,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm mlock,1150,55.47,512,28.37,925,11711,10786,15693,16718,28054,7296,0.95,74.30,450720,155939,147393,39013.84,length
+S2-lm-mlock,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm mlock,1150,59.88,512,28.25,925,11711,10786,15693,16718,28054,7296,0.95,74.30,450720,155939,147393,39013.84,length
+S2-lm-mlock,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm mlock,1150,59.72,512,28.3,925,11711,10786,15693,16718,28054,7296,0.95,74.30,450720,155939,147393,39013.84,length
+S2-lm-none-ub16,1,-ngl 99 -cmoe -ub 16 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm none,1150,85.83,512,28.57,972,11223,10251,15617,16670,27451,7296,0.95,75.42,457993,149233,140799,38607.57,length
+S2-lm-none-ub16,2,-ngl 99 -cmoe -ub 16 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm none,1150,86.31,512,28.17,972,11223,10251,15617,16670,27451,7296,0.95,75.42,457993,149233,140799,38607.57,length
+S2-lm-none-ub16,3,-ngl 99 -cmoe -ub 16 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm none,1150,86.3,512,28.51,972,11223,10251,15617,16670,27451,7296,0.95,75.42,457993,149233,140799,38607.57,length

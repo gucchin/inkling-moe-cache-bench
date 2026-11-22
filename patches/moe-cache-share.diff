@@ -1,0 +1,146 @@
+diff --git a/src/llama-moe-cache.cpp b/src/llama-moe-cache.cpp
+index ba35af021..622e48933 100644
+--- a/src/llama-moe-cache.cpp
++++ b/src/llama-moe-cache.cpp
+@@ -337,6 +337,7 @@ struct llama_moe_cache::impl {
+         int32_t id;                       // device
+         std::vector<ggml_tensor *> ref;   // expert tensors of the first layer
+         std::vector<int32_t> layers;
++        int32_t n_own = 0;                // layers that own their cache entries
+         std::vector<ggml_tensor *> banks; // device storage of all slots, one per expert tensor
+         size_t host_bytes = 0;
+         int32_t n_slots = 0;
+@@ -345,6 +346,7 @@ struct llama_moe_cache::impl {
+ 
+     struct layer {
+         int32_t ig = -1;                    // -1 if the layer is not cached
++        int32_t io = -1;                    // layer that owns the cache entries: the layer, or an earlier one with the same expert tensors
+         ggml_tensor * slot_map = nullptr;   // I32 [1, n_expert] in host memory
+         ggml_tensor * slot_map_cpu = nullptr; // looked up in place of slot_map by the graphs with a CPU part, if cpu_share > 0, its data is not used
+         ggml_tensor * cpu_map  = nullptr;   // I32 [1, n_expert] in host memory, if cpu_share > 0
+@@ -388,6 +390,9 @@ struct llama_moe_cache::impl {
+     uint32_t cpu_share_q = 0; // cpu_share in 1/65536, integer so that a simulator can reproduce the rounding
+     int32_t  n_zero    = 0; // zero slots per group
+ 
++    // LLAMA_MOE_CACHE_SHARE: layers with the same expert tensors (the passes of a looped layer) share their cache entries
++    bool share = false;
++
+     // LLAMA_MOE_CACHE_TRACE: the selected experts of each slot lookup, for a simulator of the cache
+     FILE * trace = nullptr;
+ 
+@@ -419,6 +424,10 @@ struct llama_moe_cache::impl {
+             throw std::runtime_error("MoE cache requires a MoE model");
+         }
+ 
++        if (const char * v = getenv("LLAMA_MOE_CACHE_SHARE"); v != nullptr && *v != '\0' && *v != '0') {
++            share = true;
++        }
++
+         // only cache layers that keep all of their experts in host memory, on the device the layer is assigned to
+         for (size_t il = 0; il < model.layers.size(); ++il) {
+             auto experts = llama_moe_cache_layer_experts(model.layers[il]);
+@@ -437,7 +446,20 @@ struct llama_moe_cache::impl {
+                 it->id  = id;
+                 it->ref = experts;
+             }
++            layers[il].io = (int32_t) il;
++            if (share) {
++                for (int32_t jl : it->layers) {
++                    if (llama_moe_cache_layer_experts(model.layers[jl]) == experts) {
++                        layers[il].io = layers[jl].io;
++                        break;
++                    }
++                }
++            }
+             it->layers.push_back(il);
++            if (layers[il].io != (int32_t) il) {
++                continue;
++            }
++            it->n_own++;
+             for (const ggml_tensor * t : experts) {
+                 it->host_bytes         += ggml_nbytes(t);
+                 devices[id].host_bytes += ggml_nbytes(t);
+@@ -505,7 +527,7 @@ struct llama_moe_cache::impl {
+             const device & d = devices[g.id];
+             const int32_t n_expert  = g.ref[0]->ne[2];
+             const size_t  budget    = (size_t) ((double) size*d.split/split_sum*g.host_bytes/d.host_bytes);
+-            const int32_t max_slots = g.layers.size()*n_expert;
++            const int32_t max_slots = g.n_own*n_expert;
+             while (g.n_slots < max_slots && alloc_size(g, g.n_slots + 1) <= budget) {
+                 g.n_slots++;
+             }
+@@ -603,8 +625,10 @@ struct llama_moe_cache::impl {
+             for (group & g : groups) {
+                 for (int32_t il : g.layers) {
+                     if (layers[il].slot_map != nullptr) {
+-                        int32_t * slots = (int32_t *) layers[il].slot_map->data;
+-                        std::fill(slots, slots + layers[il].slot_map->ne[1], g.lru.empty);
++                        // a layer that shares its cache entries reads the slot map of their owner
++                        const ggml_tensor * slot_map = layers[layers[il].io].slot_map;
++                        int32_t * slots = (int32_t *) slot_map->data;
++                        std::fill(slots, slots + slot_map->ne[1], g.lru.empty);
+                         g.lru.slot_map[il] = slots;
+                     }
+                 }
+@@ -628,8 +652,8 @@ struct llama_moe_cache::impl {
+                 ggml_backend_buft_name(d.buft), d.buf_size/1024.0/1024.0, d.host_bytes/1024.0/1024.0, 100.0*cpu_share);
+             for (const group & g : groups) {
+                 if (g.id == (int32_t) id) {
+-                    LLAMA_LOG_INFO("%s: %2zu layers, %s: %5d slots (%.1f%%, %.1f tokens worth)\n", __func__,
+-                        g.layers.size(), ggml_type_name(g.ref.back()->type), g.n_slots, 100.0*g.n_slots/(g.layers.size()*g.ref[0]->ne[2]),
++                    LLAMA_LOG_INFO("%s: %2zu layers (%d with their own experts), %s: %5d slots (%.1f%%, %.1f tokens worth)\n", __func__,
++                        g.layers.size(), g.n_own, ggml_type_name(g.ref.back()->type), g.n_slots, 100.0*g.n_slots/(g.n_own*g.ref[0]->ne[2]),
+                         (double) g.n_slots/(g.layers.size()*n_expert_used));
+                 }
+             }
+@@ -657,9 +681,12 @@ struct llama_moe_cache::impl {
+             const device & d = devices[g.id];
+             u32(g.id);
+             u32(g.ref[0]->ne[2]);
+-            u32(g.layers.size());
++            // the layers as a simulator sees them: the owners of the cache entries
++            u32(g.n_own);
+             for (int32_t il : g.layers) {
+-                u32(il);
++                if (layers[il].io == il) {
++                    u32(il);
++                }
+             }
+             f64(d.split);
+             f64(split_sum);
+@@ -805,19 +832,22 @@ struct llama_moe_cache::impl {
+         ggml_backend_tensor_get_async(backend, sel, ids.data(), 0, ggml_nbytes(sel));
+         ggml_backend_synchronize(backend);
+ 
++        // the LRU sees the owner of the cache entries, the backend is synchronized so an earlier pass no longer reads the slots this plan evicts
++        layer & lo = layers[l.io];
++
+         if (trace != nullptr) {
+-            write_trace(il, n_used);
++            write_trace(l.io, n_used);
+         }
+ 
+         // part of the misses is computed on the CPU once the cache is full, the carry keeps the share right on average
+         const uint32_t share_q = has_cpu && g.lru.n_filled == g.lru.n_slots ? cpu_share_q : 0;
+         auto n_cpu = [&](size_t n_miss) {
+-            const uint64_t acc = (uint64_t) n_miss*share_q + l.cpu_acc;
+-            l.cpu_acc = acc & 0xffff;
++            const uint64_t acc = (uint64_t) n_miss*share_q + lo.cpu_acc;
++            lo.cpu_acc = acc & 0xffff;
+             return (size_t) (acc >> 16);
+         };
+         size_t n_hit = 0;
+-        if (!g.lru.plan(il, ids.data(), ids.size(), sel->src[0]->ne[1], n_used, n_zero, n_cpu, fills, cpu, n_hit)) {
++        if (!g.lru.plan(l.io, ids.data(), ids.size(), sel->src[0]->ne[1], n_used, n_zero, n_cpu, fills, cpu, n_hit)) {
+             GGML_ABORT("the MoE cache is too small for the experts selected in layer %d", il);
+         }
+         if (has_cpu) {
+@@ -856,7 +886,7 @@ struct llama_moe_cache::impl {
+         st.bytes  += bytes;
+ 
+         // the next copy synchronizes the backend before it changes the slot map again
+-        ggml_backend_tensor_set_async(backend, dst, l.slot_map->data, 0, ggml_nbytes(l.slot_map));
++        ggml_backend_tensor_set_async(backend, dst, lo.slot_map->data, 0, ggml_nbytes(lo.slot_map));
+ 
+         return true;
+     }

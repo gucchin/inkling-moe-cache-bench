@@ -1,0 +1,13 @@
+label,run,server_args,prompt_n,prompt_tps,predicted_n,eval_tps,vram_before_mib,vram_peak_total_mib,vram_delta_mib,shared_growth_mib,rss_peak_mib,private_peak_mib,cache_mib,cpu_share,hit_rate_small_pct,hits_small,misses_small,misses_cpu_small,uploaded_small_mib,finish_reason
+B1,1,-ngl 99 -ncmoe 13 -ub 16,1150,54.43,512,20.76,694,11614,10920,80,17333,12527,0,0,,,,,,length
+B1,2,-ngl 99 -ncmoe 13 -ub 16,1150,55.36,512,20.88,694,11614,10920,80,17333,12527,0,0,,,,,,length
+B1,3,-ngl 99 -ncmoe 13 -ub 16,1150,55.65,512,20.83,694,11614,10920,80,17333,12527,0,0,,,,,,length
+B2,1,-ngl 99 -cmoe,1150,263.39,512,11.82,702,11707,11005,1970,16921,14377,0,0,,,,,,length
+B2,2,-ngl 99 -cmoe,1150,305.34,512,11.75,702,11707,11005,1970,16921,14377,0,0,,,,,,length
+B2,3,-ngl 99 -cmoe,1150,303.08,512,11.85,702,11707,11005,1970,16921,14377,0,0,,,,,,length
+B2-ub16,1,-ngl 99 -cmoe -ub 16,1150,30.34,512,12.0,727,3665,2938,91,17069,4517,0,0,,,,,,length
+B2-ub16,2,-ngl 99 -cmoe -ub 16,1150,30.72,512,12.03,727,3665,2938,91,17069,4517,0,0,,,,,,length
+B2-ub16,3,-ngl 99 -cmoe -ub 16,1150,30.78,512,11.98,727,3665,2938,91,17069,4517,0,0,,,,,,length
+B1-lm-none,1,-ngl 99 -ncmoe 13 -ub 16 -lm none,1150,57.35,512,21.4,942,11785,10843,7720,8748,20086,0,0,,,,,,length
+B1-lm-none,2,-ngl 99 -ncmoe 13 -ub 16 -lm none,1150,57.66,512,21.36,942,11785,10843,7720,8748,20086,0,0,,,,,,length
+B1-lm-none,3,-ngl 99 -ncmoe 13 -ub 16 -lm none,1150,58.14,512,21.37,942,11785,10843,7720,8748,20086,0,0,,,,,,length

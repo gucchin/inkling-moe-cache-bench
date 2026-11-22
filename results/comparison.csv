@@ -1,0 +1,11 @@
+label,server_args,runs,prompt_tps,eval_tps,eval_spread_pct,vram_before_mib,vram_delta_mib,shared_growth_mib,rss_peak_mib,cache_mib,cpu_share,hit_rate_pct
+B1,-ngl 99 -ncmoe 13 -ub 16,3,55.4,20.83,0.6,694,10920,80,17333,0,0,
+B2,-ngl 99 -cmoe,3,303.1,11.82,0.8,702,11005,1970,16921,0,0,
+B2-ub16,-ngl 99 -cmoe -ub 16,3,30.7,12.0,0.4,727,2938,91,17069,0,0,
+B1-lm-none,-ngl 99 -ncmoe 13 -ub 16 -lm none,3,57.7,21.37,0.2,942,10843,7720,8748,0,0,
+S1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95,3,33.4,26.6,2.1,980,10780,130,17246,7296,0.95,74.30
+S1-share0,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296,3,32.8,20.13,0.2,960,10360,77,17083,7296,0,81.54
+S2-lm-none,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm none,3,59.2,28.31,0.3,938,10768,15691,16739,7296,0.95,74.30
+S2-lm-none-share0,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none,3,57.8,27.77,0.1,925,10359,15626,16659,7296,0,81.54
+S2-lm-mlock,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm mlock,3,59.7,28.3,0.4,925,10786,15693,16718,7296,0.95,74.30
+S2-lm-none-ub16,-ngl 99 -cmoe -ub 16 --moe-cache-mib 7296 --moe-cache-cpu-share 0.95 -lm none,3,86.3,28.51,1.4,972,10251,15617,16670,7296,0.95,75.42

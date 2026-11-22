@@ -1,0 +1,13 @@
+label,share_slots,cache_mib,cpu_share,runs,prompt_tps,eval_tps,eval_spread_pct,hit_rate_small_pct,uploaded_small_mib,misses_cpu_small,output_ok,vram_before_mib,vram_delta_mib,server_args
+N-b1-ncmoe13-ub16,b1,0,0,3,55.6,20.47,1.7,,,,1,817,10929,-ngl 99 -ncmoe 13 -ub 16
+N-b1-ncmoe13-ub16-lmnone,b1,0,0,3,56.3,20.8,3.0,,,,1,786,10967,-ngl 99 -ncmoe 13 -ub 16 -lm none
+N-on-7296-cpu0-dio,on,7296,0,3,148.4,39.63,1.0,94.77,146365.73,0,1,777,10358,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm dio
+N-on-7296-cpu0-mmap,on,7296,0,3,86.0,33.57,0.9,94.77,146365.73,0,1,777,10381,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296
+N-on-7296-cpu0-ub16,on,7296,0,3,126.3,39.16,0.5,94.41,156592.14,0,1,784,10261,-ngl 99 -cmoe -ub 16 --moe-cache-mib 7296 -lm none
+N-on-7296-cpu0-ub8,on,7296,0,3,110.3,39.42,0.3,91.99,448647.29,0,1,784,10192,-ngl 99 -cmoe -ub 8 --moe-cache-mib 7296 -lm none
+N-on-4096-cpu0-ub64,on,4096,0,3,50.4,48.24,0.4,99.13,24009.54,0,0,785,10891,-ngl 99 -cmoe -ub 64 --moe-cache-mib 4096 -lm none
+N-on-4096-cpu0-ub128,on,4096,0,3,56.0,48.07,0.5,99.13,23979.64,0,0,782,10919,-ngl 99 -cmoe -ub 128 --moe-cache-mib 4096 -lm none
+N-off-4096-cpu0-ub64,off,4096,0,3,53.7,47.98,0.8,98.46,42520.73,0,0,793,10945,-ngl 99 -cmoe -ub 64 --moe-cache-mib 4096 -lm none
+N-off-4096-cpu0.95-ub64,off,4096,0.95,3,53.8,39.58,6.4,96.74,7875.67,18016,0,781,11023,-ngl 99 -cmoe -ub 64 --moe-cache-mib 4096 --moe-cache-cpu-share 0.95 -lm none
+N-on-4096-cpu0-ub64-mmap,on,4096,0,3,47.4,47.72,1.0,99.13,24009.54,0,0,781,11021,-ngl 99 -cmoe -ub 64 --moe-cache-mib 4096
+N-on-2816-cpu0-ub64,on,2816,0,3,82.9,47.77,0.5,98.73,35013.36,0,0,781,11019,-ngl 99 -cmoe -ub 64 --moe-cache-mib 2816 -lm none

@@ -1,0 +1,8 @@
+config,server_args,free_at_load_mib,model_mib,kv_mib,compute_mib,moe_cache_mib,vram_delta_mib,shared_growth_mib,error
+cmoe ub512 cache0,-ngl 99 -cmoe,11056,1264.6,1264.0,9948.4,0,9877,3002,
+cmoe ub512 cache2048,-ngl 99 -cmoe --moe-cache-mib 2048,11056,1264.6,1264.0,9948.4,2045.6,9872,5052,
+cmoe ub64 cache0,-ngl 99 -cmoe -ub 64,11056,1264.6,1224.0,7143.3,0,9847,92,
+cmoe ub32 cache0,-ngl 99 -cmoe -ub 32,11056,1264.6,1224.0,6847.3,0,9551,86,
+cmoe ub32 cache2048,-ngl 99 -cmoe -ub 32 --moe-cache-mib 2048,11056,1264.6,1224.0,699.6,2045.6,5449,89,
+cmoe ub16 cache0,-ngl 99 -cmoe -ub 16,11056,1264.6,1224.0,105.0,0,2809,84,
+cmoe ub16 cache2048,-ngl 99 -cmoe -ub 16 --moe-cache-mib 2048,11056,1264.6,1224.0,105.0,2045.6,4855,82,

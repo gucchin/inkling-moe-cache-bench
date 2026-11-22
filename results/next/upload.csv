@@ -1,0 +1,5 @@
+label,ubatch,hits,misses,hit_rate_pct,uploaded_mib
+N-off-7296-cpu0,small,494650,112005,81.54,507842.00
+N-off-7296-cpu0,large,46707,244376,16.05,1114458.75
+N-on-7296-cpu0,small,574903,31752,94.77,146365.73
+N-on-7296-cpu0,large,221092,69991,75.95,320079.88

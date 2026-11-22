@@ -1,0 +1,7 @@
+label,run,server_args,prompt_n,prompt_tps,predicted_n,eval_tps,vram_before_mib,vram_peak_total_mib,vram_delta_mib,shared_growth_mib,rss_peak_mib,private_peak_mib,cache_mib,cpu_share,hit_rate_small_pct,hits_small,misses_small,misses_cpu_small,uploaded_small_mib,finish_reason
+N-off-7296-cpu0.5,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none --moe-cache-cpu-share 0.5,1150,56.44,512,27.76,781,11657,10876,15632,16675,28053,7296,0.5,79.76,483854,122798,61008,281609.47,length
+N-off-7296-cpu0.5,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none --moe-cache-cpu-share 0.5,1150,60.86,512,27.8,781,11657,10876,15632,16675,28053,7296,0.5,79.76,483854,122798,61008,281609.47,length
+N-off-7296-cpu0.5,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none --moe-cache-cpu-share 0.5,1150,60.61,512,27.88,781,11657,10876,15632,16675,28053,7296,0.5,79.76,483854,122798,61008,281609.47,length
+N-on-7296-cpu0.5,1,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none --moe-cache-cpu-share 0.5,1150,147.78,512,34.68,793,11147,10354,15625,16674,27560,7296,0.5,93.59,567744,38894,19068,91942.28,length
+N-on-7296-cpu0.5,2,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none --moe-cache-cpu-share 0.5,1150,147.59,512,34.84,793,11147,10354,15625,16674,27560,7296,0.5,93.59,567744,38894,19068,91942.28,length
+N-on-7296-cpu0.5,3,-ngl 99 -cmoe -ub 32 --moe-cache-mib 7296 -lm none --moe-cache-cpu-share 0.5,1150,147.97,512,34.88,793,11147,10354,15625,16674,27560,7296,0.5,93.59,567744,38894,19068,91942.28,length

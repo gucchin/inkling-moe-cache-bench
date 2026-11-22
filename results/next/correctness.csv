@@ -1,0 +1,5 @@
+name,share_slots,cpu_share,host_experts_mib,cache_mib,groups,server_hit_small_pct,replay_hit_small_pct,trace_layers,trace_records,eval_tps,same_text_as_share_off
+off-cpu0,0,0,28188.00,7288.58,,80.48,80.48,44+4,46512,22.67/24.22/24.94,same/same/same
+on-cpu0,1,0,15066.00,7285.26,,94.00,94.0,20+4,46512,34.75/35.49/36.57,same/same/same
+off-cpu0.95,0,0.95,28188.00,7288.58,,70.10,69.68,44+4,46504,22.02/22.18/22.98,same/same/same
+on-cpu0.95,1,0.95,15066.00,7285.26,,86.57,86.21,20+4,46512,30.44/33.13/34.2,differs at char 206 of 1075/differs at char 295 of 823/differs at char 435 of 1399
